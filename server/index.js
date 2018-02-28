@@ -90,13 +90,8 @@ app.get('/api/admin', (req, res) => {
     res.status(200).json(response);
   })
 });
-  
-
-
-
-
-
  
+
 app.get('/api/logout', (req, res) => {
   req.session.destroy(()=>{
     successRedirect: 'http://localhost:3000/#/login';

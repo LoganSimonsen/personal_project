@@ -33,8 +33,9 @@ constructor(){
   render(){
     return (
     <header className="App-header">
+      
       <div>
-      <img id='headerLogo' src={require('./logo.png')} alt="my image"></img>
+      <img id='headerLogo' src='http://www.favicon.cc/logo3d/914733.png' alt={require('./logo.png')}></img>
       <br></br>
       <a href={process.env.REACT_APP_LOGIN}>
         { this.props.user.id === undefined && <p className="button-small pure-button">Login</p> }
@@ -55,6 +56,7 @@ constructor(){
       ) : (
         <h1>{this.props.errMessage}</h1>
       )}
+      { this.props.user.id === undefined && <span className='welcomeHeaderWrap'><h1 className='welcomeHeader'>Welcome to DashyBoards!</h1></span>}
       </div>
     </header>
     )

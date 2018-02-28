@@ -14,6 +14,7 @@ export function getUser() {
     payload: axios
       .get("/api/me")
       .then(response => {
+        console.log('reducer', response.data);
         return response.data;
       })
       .catch(err => {
@@ -44,7 +45,6 @@ export function logout() {
     payload: axios
       .get("/api/logout")
       .then(response => {
-        console.log(response.data);
         return response.data;
       })
       .catch(err => {

@@ -5,6 +5,7 @@ import { connect } from "react-redux";
 import { withRouter, Redirect } from "react-router-dom";
 
 import { getUser } from "../../ducks/reducer";
+// import {getTransactions} from "../../ducks/reducer";
 import { logout } from "../../ducks/reducer";
 
 let chartData = {
@@ -61,6 +62,7 @@ class Chart extends Component {
     }
     componentDidMount(){
         this.props.getUser();
+        this.props.getTransactions;
         console.log(this.props.user);
     }
 
@@ -88,4 +90,4 @@ class Chart extends Component {
 
     const mapStateToProps = state => state;
 
-    export default withRouter(connect(mapStateToProps, { getUser, logout })(Chart));
+    export default withRouter(connect(mapStateToProps, { getUser, logout})(Chart));
