@@ -1,0 +1,147 @@
+.entireApp {
+  height: 500vh;
+  background-color: lightslategray;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  font-family: "Courier New", Courier, monospace;
+}
+.App {
+  text-align: center;
+
+}
+
+.App-logo {
+  animation: App-logo-spin infinite 20s linear;
+  height: 80px;
+}
+
+.App-header {
+  background-color: #222;
+  height: 100px;
+  padding: 5px;
+  padding-top: 10px;
+  color: white;
+  position:fixed;
+  top:0px;
+  width: 99vw;
+  overflow: hidden;
+}
+
+.App-title {
+  font-size: 1.5em;
+}
+
+.App-intro {
+  font-size: large;
+}
+
+@keyframes App-logo-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.loginDiv {
+  height: 80vh;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  justify-content: center;
+}  
+
+.pure-button {
+  margin: 5px;
+}
+
+.profileImage {
+  zoom: .08;
+  border-radius: 350px;
+  border: solid thin;
+  position: absolute;
+  right: 15px;
+  margin-right: 200px;
+}
+.load-wrapp p {
+
+  padding: 0 0 20px;
+}
+.load-wrapp:last-child {
+  margin-right: 0;
+  margin-top: 55px;
+}
+
+.line {
+  text-align: center;
+  display: inline-block;
+  width: 15px;
+  height: 15px;
+  border-radius: 15px;
+  background-color: #4b9cdb;
+}
+
+.loadingGif {
+  width: 50vw;
+  align-self: center;
+}
+#welcome {
+  padding-left: 4px;
+  font-size: .8em;
+  position: absolute;
+  right: 5px;
+  margin-right: 15px;
+  padding-top: 3px;
+}
+
+.button-small {
+  font-size: 85%;
+}
+#headerLogo {
+  zoom: 2.5;
+  margin-left: 2px;
+}
+
+.buttonContainer {
+  text-align: center;
+  padding-top: 120px;
+  background: transparent;
+  display: flex;
+  flex-direction: column;
+}
+
+.homeButtons {
+  margin: 0 auto;
+  margin-top: 25px;
+  text-align: center;
+  display:table-cell;
+  vertical-align:middle;
+  padding: 5px;
+  width: 300px;
+  color: white;
+  border-radius: 25px;
+  background-color: teal;
+}
+
+.chart {
+  background: white;
+  margin: 3px;  
+  margin-top: 20px;
+  padding: 3px;
+  border: solid;
+
+}
+.chartWrapper {
+  margin-top: 110px;
+}
+.adminWrapper {
+  padding-top: 180px;
+}
+.LinkWrap {
+  text-decoration: none;
+}
+th {
+  background: black;
+  color: white;
+}
+ tr, td {
+  background: white;
+}
