@@ -14,7 +14,6 @@ export function getUser() {
     payload: axios
       .get("/api/me")
       .then(response => {
-        console.log('reducer', response.data);
         return response.data;
       })
       .catch(err => {

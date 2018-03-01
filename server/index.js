@@ -98,6 +98,19 @@ app.get('/api/logout', (req, res) => {
   });
 });
 
+app.put('/api/disable/:name', (req, res)=> {
+  console.log(req.params.name);
+  app.get('db').disableAdmin([req.params.name]).then(response => {
+    res.status(200).json(response);
+  })
+})
+
+app.put('/api/enable/:name', (req, res)=> {
+  console.log(req.params.name);
+  app.get('db').enableAdmin([req.params.name]).then(response => {
+    res.status(200).json(response);
+  })
+})
 // FOR TESTING PURPOSES
 
 // app.get("/api/test", (req, res) => {

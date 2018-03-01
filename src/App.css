@@ -1,7 +1,6 @@
 .entireApp {
-  height: 500vh;
-  background-image: url('./bgimage.jpg');
-  background-size: 200vh;
+  height: 300vh;
+  background-color: slategray;
   overflow: hidden;
   background-repeat: no-repeat;
   background-attachment: fixed;
