@@ -1,11 +1,14 @@
+@import url("https://fonts.googleapis.com/css?family=Arimo|Noto+Sans|Ubuntu");
+
 .entireApp {
   height: 300vh;
-  background-color: slategray;
+  background-color: white;
   overflow: hidden;
   background-repeat: no-repeat;
   background-attachment: fixed;
-  font-family: "Courier New", Courier, monospace;
+  font-family: 'Ubuntu', 'Noto+Sans', 'Arimo';
 }
+
 .App {
   text-align: center;
 
@@ -18,7 +21,7 @@
 
 .App-header {
   background-color: #222;
-  height: 100px;
+  height: 105px;
   padding: 5px;
   padding-top: 10px;
   color: white;
@@ -55,12 +58,15 @@
 }
 
 .profileImage {
-  zoom: .08;
+  zoom: .15;
   border-radius: 350px;
   border: solid thin;
   position: absolute;
-  right: 15px;
-  margin-right: 200px;
+  right: 2px;
+  margin-right: 150px;
+  top: 30px;
+  color: transparent;
+  background: transparent;
 }
 .load-wrapp p {
 
@@ -120,9 +126,17 @@
   width: 300px;
   color: white;
   border-radius: 25px;
-  background-color: teal;
+  background-color: slategray;
+  box-shadow: 10px 10px 0px grey;
 }
-
+.homeButtons:active {
+box-shadow: 3px 3px 0px grey;
+margin-top: 28px;
+margin-left: 8px;
+}
+.homeButtons:hover {
+  opacity: .95;
+  }
 .chart {
   background: white;
   margin: 3px;  
@@ -135,8 +149,13 @@
   margin-top: 110px;
 }
 .adminWrapper {
-  padding-top: 180px;
-  /* text-align: center; */
+  padding-top: 120px;
+  margin: 0 auto;
+  text-align: center;
+}
+table.center {
+  margin-left:auto; 
+  margin-right:auto;
 }
 .LinkWrap {
   text-decoration: none;
@@ -144,6 +163,7 @@
 th {
   background: black;
   color: white;
+  text-align: center;
 }
  tr, td {
   background: white;
@@ -235,7 +255,9 @@ input:checked + .slider:before {
   }
   .welcomeHeader {
     text-align: center;
-    position: fixed;
+    position: absolute;
+    top: 0px;
+    right: 20px;
   }
 @media screen and (max-width: 900px) {
   .welcomeHeader {
@@ -243,4 +265,11 @@ input:checked + .slider:before {
     padding-top: 7px;
   }
 
+}
+
+@media screen and (min-width: 900px) {
+
+.adminWrapper {
+  font-size: 1.8em;
+}
 }
