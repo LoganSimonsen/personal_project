@@ -134,6 +134,23 @@ app.put('/api/enable/:name', (req, res)=> {
 //   res.sendFile(path.join(__dirname, '../build/index/html'));
 // })
 
+// let transDataArr = [];
+// function myFunc() {
+//   if(transDataArr.length >= 7){
+//     transDataArr = transDataArr.slice(1);
+//   }
+// transDataArr.push(Math.floor(Math.random()*100));
+// console.log(transDataArr);
+// }
+
+// setInterval(myFunc, 5000);
+
+// app.get(`/api/gettrans`, (req, res)=>{
+//   console.log('something');
+//   res = transDataArr;
+//   res.status(200).json(response);
+// })
+
 app.listen(port, () => {
   console.log(`Listening on Port: ${port}`);
 });

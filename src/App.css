@@ -2,7 +2,8 @@
 
 .entireApp {
   height: 300vh;
-  background-color: white;
+  background-image: url('./StockSnap1.jpg');
+  background-size: 150vh;
   overflow: hidden;
   background-repeat: no-repeat;
   background-attachment: fixed;
@@ -113,6 +114,7 @@
   background: transparent;
   display: flex;
   flex-direction: column;
+  color: black;
 }
 
 
@@ -124,19 +126,20 @@
   vertical-align:middle;
   padding: 5px;
   width: 300px;
-  color: white;
+  color: black;
+  border: solid;
   border-radius: 25px;
-  background-color: slategray;
-  box-shadow: 10px 10px 0px grey;
+  background-color: transparent;
+  box-shadow: 10px 10px 0px black ;
+  -webkit-transform: rotateX(20deg);
+  text-shadow: 1px 1px 2px orange;
 }
 .homeButtons:active {
 box-shadow: 3px 3px 0px grey;
 margin-top: 28px;
 margin-left: 8px;
 }
-.homeButtons:hover {
-  opacity: .95;
-  }
+
 .chart {
   background: white;
   margin: 3px;  
@@ -271,5 +274,16 @@ input:checked + .slider:before {
 
 .adminWrapper {
   font-size: 1.8em;
+}
+.entireApp {
+  background-size: 200vh;
+}
+.buttonContainer {
+  flex-direction: row;
+  justify-content: center;
+}
+.homeButtons {
+margin: 25px;
+
 }
 }

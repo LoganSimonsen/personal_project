@@ -3,7 +3,6 @@ import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 import { getUserAdmins } from "../../ducks/reducer";
 import swal from 'sweetalert';
-
 // import axios
 import axios from 'axios';
 
@@ -26,15 +25,20 @@ class AdminPortal extends Component {
     componentDidMount(){
         this.props.getUserAdmins().then(response => {
             this.setState({rawData: response.action.payload});
-            console.log('onDidMount', response.action.payload);
         });   
+        // setInterval(function(){
+        //     axios.get(`/api/gettrans`).then(results=>{
+        //         console.log('interval');
+        //         console.log('getinterval', results)});
+        //     },5001);
     }
+
     componentWillUpdate(nextProps, nextState) {
         if (nextState.open == true && this.state.open == false) {
           this.props.onWillOpen();
         }
       }
-
+    
 
 
     disableUser(name, isadmin){
@@ -146,7 +150,7 @@ formSubmit(event){
         return (
             <div className='adminWrapper'>
             
-            {this.props.user.name !== undefined && <div><h1>User Admins</h1>
+            {this.props.user.name !== undefined && <div><h1 style={{color: 'white'}}>User Admins</h1>
                 <table className="pure-table pure-table-bordered center">
                 <thead>
                     <tr>
