@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
-import { getUserAdmins } from "../../ducks/reducer";
+import { getUserAdmins, enableAdmin, disableAdmin } from "../../ducks/reducer";
 import swal from 'sweetalert';
 // import axios
 import axios from 'axios';
@@ -23,9 +23,10 @@ class AdminPortal extends Component {
         this.handleChange2 = this.handleChange2.bind(this);
     }
     componentDidMount(){
-        this.props.getUserAdmins().then(response => {
-            this.setState({rawData: response.action.payload});
-        });   
+        this.props.getUserAdmins();
+        // this.props.getUserAdmins().then(response => {
+        //     this.setState({rawData: response.action.payload});
+        // });   
         // setInterval(function(){
         //     axios.get(`/api/gettrans`).then(results=>{
         //         console.log('interval');
@@ -33,11 +34,16 @@ class AdminPortal extends Component {
         //     },5001);
     }
 
-    componentWillUpdate(nextProps, nextState) {
-        if (nextState.open == true && this.state.open == false) {
-          this.props.onWillOpen();
-        }
-      }
+    // componentWillUpdate(nextProps, nextState) {
+    //     if (nextState.open == true && this.state.open == false) {
+    //       this.props.onWillOpen();
+    //     }
+    //   }
+
+    shouldComponentUpdate() {
+        console.log('Hit');
+        return true;
+    }
     
 
 
@@ -57,12 +63,13 @@ class AdminPortal extends Component {
               swal("Very Well...", {
                 icon: "success",
               });
-              axios.put(`/api/disable/${name}`).then(results=>{
-                  console.log('disable', results);
-                  this.setState({rawData: results.data}, this.forceUpdate());
-                  console.log('currentState', this.state.rawData);
+              this.props.disableAdmin(name);
+            //   axios.put(`/api/disable/${name}`).then(results=>{
+                //   console.log('disable', results);
+                //   this.setState({rawData: results.data}, this.forceUpdate());
+                //   console.log('currentState', this.props.userAdmins);
                 //   componentShouldUpdate(){return true};
-                }).catch(console.log);
+                // }).catch(console.log);
             } else {
               swal("Action Successfully Canceled");
               return;
@@ -84,13 +91,13 @@ enableUser(name, isadmin){
           swal("Very Well...", {
             icon: "success",
           });
-          axios.put(`/api/enable/${name}`).then(results=>{
-            console.log('disable', results);
-            console.log('currentState', this.state.rawData);
-            this.setState({rawData: results.data}, this.forceUpdate());
+          this.props.enableAdmin(name)
+        //   axios.put(`/api/enable/${name}`).then(results=>{
+        //     console.log('disable', results);
+        //     console.log('currentState', this.state.rawData);
+        //     this.setState({rawData: results.data}, this.forceUpdate());
             // componentShouldUpdate(){return true};
-          }).catch(console.log)
-          ;
+        //   }).catch(console.log)
         } else {
           swal("Action Successfully Canceled");
           return;
@@ -132,14 +139,15 @@ formSubmit(event){
 }
 
       render(){
+          console.log('RERENDER', this.props.userAdmins)
           const {formSubmit} = this.state;
-        let results = [];
-           results = this.state.rawData.map((data, i) => {
+           let results = this.props.userAdmins.map((data, i) => {
+               console.log('DATA: ', data)
                let name = data.name;
-            return <tr>
+            return <tr key={`${data.name}${i}`}>
             <td>{data.name}</td><td>{data.authid}</td><td>{data.isadmin === 1 && 
                 <button className="button-success pure-button" type="submit" onClick={() => { this.disableUser(name, data.isadmin);
-                console.log(this.state.rawData[i]);
+                console.log('In MAP: ', this.props.userAdmins[i]);
                 }}>True</button>}
 
           {data.isadmin === 0 && <button className="button-warning pure-button" onClick={() => { this.enableUser(name, data.isadmin);
@@ -174,4 +182,4 @@ formSubmit(event){
 
     const mapStateToProps = state => state;
 
-    export default withRouter(connect(mapStateToProps, { getUserAdmins })(AdminPortal));
+    export default withRouter(connect(mapStateToProps, { getUserAdmins, enableAdmin, disableAdmin })(AdminPortal));

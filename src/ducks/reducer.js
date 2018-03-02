@@ -5,6 +5,8 @@ import axios from "axios";
 const GET_USER = "GET_USER";
 export const GET_USER_ADMINS = "GET_USER_ADMINS";
 const DESTROY_USER = "DESTROY_USER";
+const ENABLE_ADMIN = "ENABLE_ADMIN";
+const DISABLE_ADMIN = "DISABLE_ADMIN";
 
 // ACTION CREATORS
 
@@ -39,6 +41,26 @@ export function getUserAdmins() {
   };
 }
 
+export function enableAdmin(name) {
+  return {
+    type: ENABLE_ADMIN,
+    payload: axios.put(`/api/enable/${name}`).then(response => {
+      console.log('RESPONSE IN REQ: ', response.data)
+      return response.data;
+    })
+  }
+}
+
+export function disableAdmin(name) {
+  return {
+    type: DISABLE_ADMIN,
+    payload: axios.put(`/api/disable/${name}`).then(response => {
+      console.log('RESPONSE IN REQ: ', response.data)
+      return response.data;
+    })
+  }
+}
+
 export function logout() {
   return {
     type: DESTROY_USER,
@@ -60,10 +82,12 @@ const initialState = {
   user: {},
   isLoading: false,
   didErr: false,
-  errMessage: null
+  errMessage: null,
+  userAdmins: []
 };
 
 export default function reducer(state = initialState, action) {
+  console.log(action);
   switch (action.type) {
     case `${GET_USER}_PENDING`:
       return Object.assign({}, state, { isLoading: true });
@@ -80,6 +104,16 @@ export default function reducer(state = initialState, action) {
           didErr: true, 
           errMessage: action.payload 
       });
+
+     case `${GET_USER_ADMINS}_FULFILLED`:
+        return Object.assign({}, state, { userAdmins: action.payload })
+
+    case `${ENABLE_ADMIN}_FULFILLED`:
+    console.log('HELLO WORLD');
+      return Object.assign({}, state, { userAdmins: action.payload })
+      case `${DISABLE_ADMIN}_FULFILLED`:
+    console.log('HELLO WORLD');
+      return Object.assign({}, state, { userAdmins: action.payload })
     default:
       return state;
   }

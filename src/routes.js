@@ -3,12 +3,14 @@ import { Switch, Route } from "react-router-dom";
 
 import Home from "./components/Home/Home";
 import Chart from "./components/Charts/Chart";
+import LineChart from "./components/Charts/LineChart";
 import AdminPortal from './components/AdminPortal/AdminPortal';
 
 export default (
   <Switch>
     <Route exact path="/" component={Home} />
     <Route exact path="/Chart" component={Chart} />
+    <Route exact path="/LineChart" component={LineChart} />
     <Route exact path="/AdminPortal" component={AdminPortal} />
     <Route
       path="*"
