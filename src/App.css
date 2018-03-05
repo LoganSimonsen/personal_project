@@ -3,10 +3,10 @@
 .entireApp {
   height: 300vh;
   background-image: url('./StockSnap1.jpg');
-  background-size: 150vh;
+  background-size: 250vh !important;
   overflow: hidden;
   background-repeat: no-repeat;
-  background-attachment: fixed;
+  /* background-attachment: fixed; */
   font-family: 'Ubuntu', 'Noto+Sans', 'Arimo';
 }
 .my-component {
@@ -16,10 +16,10 @@
 .fullscreen-enabled {
   height: 300vh;
   background-image: url('./StockSnap1.jpg');
-  background-size: 200vh;
+  background-size: 250vh;
   overflow: hidden;
   background-repeat: no-repeat;
-  background-attachment: fixed;
+  /* background-attachment: fixed; */
 }
 #fullscreenButton {
   position: fixed;
@@ -295,7 +295,7 @@ input:checked + .slider:before {
     font-size: 1.5em;
     padding-top: 7px;
   }
-  #fullscreenButton  {
+#fullscreenButton  {
   display: none;
 }
 }
@@ -303,7 +303,7 @@ input:checked + .slider:before {
 @media screen and (min-width: 900px) {
 
 .adminWrapper {
-  font-size: 1.8em;
+  font-size: 1.6em;
 }
 .entireApp {
   background-size: 200vh;

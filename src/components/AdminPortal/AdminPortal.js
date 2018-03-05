@@ -158,7 +158,7 @@ formSubmit(event){
         return (
             <div className='adminWrapper'>
             
-            {this.props.user.name !== undefined && <div><h1 style={{color: 'white'}}>User Admins</h1>
+            {this.props.user.name !== undefined && <div><h1 id='adminHeader' style={{color: 'white'}}>User Admins</h1>
                 <table className="pure-table pure-table-bordered center">
                 <thead>
                     <tr>
