@@ -6,7 +6,7 @@
   background-size: 250vh !important;
   overflow: hidden;
   background-repeat: no-repeat;
-  /* background-attachment: fixed; */
+  background-attachment: fixed;
   font-family: 'Ubuntu', 'Noto+Sans', 'Arimo';
 }
 .my-component {
@@ -19,7 +19,8 @@
   background-size: 250vh;
   overflow: hidden;
   background-repeat: no-repeat;
-  /* background-attachment: fixed; */
+  background-attachment: fixed;
+
 }
 #fullscreenButton {
   position: fixed;
@@ -161,20 +162,30 @@ box-shadow: 3px 3px 0px black;
 margin-top: 28px;
 margin-left: 8px;
 }
-
+.wordWrap {
+  word-wrap: break-word;
+}
 .chart {
   background: white;
   margin: 3px;  
-  margin-top: 20px;
   padding: 3px;
   border: solid;
 
 }
 .chartWrapper {
-  margin-top: 110px;
+  margin: 0 auto;
+  margin-top: 130px;
+
+  
+}
+.lineChartWrapper{
+  height: 100vh;
+}
+.lineChartInner{
+  height: 100vh;
 }
 .adminWrapper {
-  padding-top: 120px;
+  padding-top: 110px;
   margin: 0 auto;
   text-align: center;
 }
@@ -249,11 +260,10 @@ input:checked + .slider:before {
 .slider.round:before {
   border-radius: 50%;
 }
-.lineChartWrapper {
-  
-}
-.lineChartInner {
-  height: 100px;
+
+.pure-table {
+  margin-top: 5px;
+  padding:2px;
 }
 
 .button-success,
@@ -303,7 +313,7 @@ input:checked + .slider:before {
 @media screen and (min-width: 900px) {
 
 .adminWrapper {
-  font-size: 1.6em;
+  font-size: 1.4em;
 }
 .entireApp {
   background-size: 200vh;

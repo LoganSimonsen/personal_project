@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { connect } from "react-redux";
 import { withRouter, Redirect } from "react-router-dom";
 
+import LineChart from './LineChart';
 import { getUser } from "../../ducks/reducer";
 // import {getTransactions} from "../../ducks/reducer";
 import { logout } from "../../ducks/reducer";
@@ -78,13 +79,13 @@ class Chart extends Component {
         return (
             <div className='chartWrapper'>
             {this.props.user.id > 0 && <div className='chart'>
-                    <Line className='chartInner' data={this.state.chartData} options={null} width="600" height="240"/>
+                    <Line className='chartInner' data={this.state.chartData} options={null} width="600" height="200"/>
                 </div>}
                 {this.props.user.id > 0 && <div className='chart'>
-                    <Bar className='chartInner' data={this.state.chartData} options={null} width="600" height="250"/>
+                    <Bar className='chartInner' data={this.state.chartData} options={null} width="600" height="200"/>
                 </div>}
                 {this.props.user.id > 0 && <div className='chart'>
-                    <Doughnut className='chartInner' data={this.state.chartData2} options={null} width="600" height="250"/>
+                    <Doughnut className='chartInner' data={this.state.chartData2} options={null} width="600" height="200"/>
                 </div> }
             </div>
         )

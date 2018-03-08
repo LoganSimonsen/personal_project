@@ -1,9 +1,9 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
-import { getUserAdmins, enableAdmin, disableAdmin } from "../../ducks/reducer";
+import { getAllUsers, getUserAdmins, enableAdmin, disableAdmin, createAdmin } from "../../ducks/reducer";
 import swal from 'sweetalert';
-// import axios
+
 import axios from 'axios';
 
 class AdminPortal extends Component {
@@ -21,9 +21,11 @@ class AdminPortal extends Component {
         this.formSubmit = this.formSubmit.bind(this);
         this.handleChange = this.handleChange.bind(this);
         this.handleChange2 = this.handleChange2.bind(this);
+        this.createAdmin = this.createAdmin.bind(this);
     }
     componentDidMount(){
         this.props.getUserAdmins();
+        this.props.getAllUsers();
         // this.props.getUserAdmins().then(response => {
         //     this.setState({rawData: response.action.payload});
         // });   
@@ -78,7 +80,6 @@ class AdminPortal extends Component {
 }
     }
 enableUser(name, isadmin){
-    
     swal({
         title: "Are you sure you want to enable this Admin?",
         text: "Once enabled, user will have access to Admin functions",
@@ -105,10 +106,40 @@ enableUser(name, isadmin){
         
       });
 }
+
+createAdmin(name, authid){
+    swal({
+        title: "Are you sure you want to add this Admin?",
+        text: '',
+        icon: "warning",
+        buttons: true,
+        dangerMode: true,
+      })
+      .then((willDelete) => {
+        if (willDelete) {
+          swal("Very Well...", {
+            icon: "success",
+          });
+          this.props.createAdmin(name, authid)
+        //   axios.put(`/api/enable/${name}`).then(results=>{
+        //     console.log('disable', results);
+        //     console.log('currentState', this.state.rawData);
+        //     this.setState({rawData: results.data}, this.forceUpdate());
+            // componentShouldUpdate(){return true};
+        //   }).catch(console.log)
+        } else {
+          swal("Action Successfully Canceled");
+          return;
+        }
+        
+      });
+}
+
 handleChange(event) {
     this.setState({value: event.target.value});
   }
   handleChange2(event) {
+    console.log(event.target.value);
     this.setState({value2: event.target.value});
   }
 
@@ -124,10 +155,11 @@ formSubmit(event){
         buttons: true,
         dangerMode: true,
       })
-      .then((willDelete) => {
-        if (willDelete) {
+      .then((willSubmit) => {
+        if (willSubmit) {
           swal("Very Well...", {
             icon: "success",
+            // this.props.Admin(name, authid);
           });
         } else {
           swal("Action Successfully Canceled");
@@ -155,10 +187,18 @@ formSubmit(event){
         </td>
             </tr>
           })
+
+          let userResults = this.props.allUsers.map((data, i) => {
+            console.log('DATA: ', data)
+            let names = data.name;
+         return <tr key={`${data.names}${i}`}>
+         <td>{data.id}</td><td className='wordWrap'>{data.name}</td><td>{data.authid}</td><td><button className="button-warning pure-button" onClick={() => { this.createAdmin(data.name, data.authid);
+         }}>+</button></td></tr>
+          });
         return (
             <div className='adminWrapper'>
             
-            {this.props.user.name !== undefined && <div><h1 id='adminHeader' style={{color: 'white'}}>User Admins</h1>
+            {this.props.user.name !== undefined && <div><h3 id='adminHeader'>User Admins</h3>
                 <table className="pure-table pure-table-bordered center">
                 <thead>
                     <tr>
@@ -168,13 +208,22 @@ formSubmit(event){
                 <tbody>
                     {results}
                     </tbody>
+                    <br></br>
                     </table>
                     <br></br>
                     <form onSubmit={this.formSubmit}>
                     <input type="text" name="Name" placeholder="Name" value={this.state.value} onChange={this.handleChange} ></input>
                     <input type="text" name="Authorization ID" placeholder="Auth ID" value={this.state.value2}onChange={this.handleChange2}></input>
                     <input type='submit' value=" + " />
-                  </form> </div>}
+                  </form> 
+                 <h3> Users</h3>
+                  <table  className="pure-table pure-table-bordered center">
+                    <thead>
+                        {userResults}
+                    </thead>
+                  </table>
+                  
+                  </div>}
             </div>
         )
     }
@@ -182,4 +231,4 @@ formSubmit(event){
 
     const mapStateToProps = state => state;
 
-    export default withRouter(connect(mapStateToProps, { getUserAdmins, enableAdmin, disableAdmin })(AdminPortal));
+    export default withRouter(connect(mapStateToProps, { getAllUsers, getUserAdmins, enableAdmin, disableAdmin, createAdmin })(AdminPortal));

@@ -9,12 +9,21 @@ import { getUser } from "../../ducks/reducer";
 import { logout } from "../../ducks/reducer";
 
 
+let chartOptions: {	
+    responsive: true,
+    maintainAspectRatio: false
+}
+
 class LineChart extends Component {
     constructor(){
         super();
         this.state = {
             counter: 0,
+            height: 600,
+            width: 200,
             chartData: {
+                maintainAspectRatio: false,
+                responsive: true,
                 labels: [10.00, 10.05, 10.10, 10.15, 10.20, 10.25, 10.30],
                 datasets: [
                     {
@@ -59,26 +68,43 @@ class LineChart extends Component {
                 }]
             }
         }
+        this.functionRunning = this.functionRunning.bind(this);
+        this.functionRunning2 = this.functionRunning2.bind(this);
     }
     componentDidMount(){
         this.props.getUser();
-        //     let temp1 = this.state.chartData.datasets[0].data;
-        //    temp1.push(Math.floor(Math.random()*100));
-        //     temp1 = temp1.slice(1,1);
-        //    let temp2 = this.state.chartData;
-        //    console.log(temp1);
-        //    temp2.datasets[0].data = temp1;
-        //    console.log(temp1);
-        //     console.log('currentstate', this.state.chartData);
-        //     console.log('temp2', temp2);
+        setInterval(this.functionRunning, 3000);
+        setInterval(this.functionRunning2, 3000);
+        console.log('dems', window.innerWidth)
+        this.setState({height: window.innerHeight});
+        this.setState({width: window.innerWidth});
           }
+    
+    functionRunning(){
+        let temp1 = this.state.chartData.datasets[0].data;
+           temp1.push(Math.floor(Math.random() * 31) + 50);
+           temp1 = temp1.slice(1);
+           let temp2 = this.state.chartData;
+           temp2.datasets[0].data = temp1
+           this.setState({chartData: temp2});
+           
+    }
 
+    functionRunning2(){
+        let temp1 = this.state.chartData.datasets[1].data;
+           temp1.push(Math.floor(Math.random()*10));
+           temp1 = temp1.slice(1);
+           let temp2 = this.state.chartData;
+           temp2.datasets[1].data = temp1
+           this.setState({chartData: temp2});
+    }
+    
 
       render(){
         return (
             <div className='lineChartWrapper'>
             {this.props.user.id > 0 && <div className='chart'>
-                    <Line className='lineChartInner' data={this.state.chartData} options={null} width="450" height="240"/>
+                    <Line className='lineChartInner' data={this.state.chartData} options={chartOptions}/>
             </div>}
         
             </div>

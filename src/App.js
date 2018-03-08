@@ -34,7 +34,7 @@ exitFull = () => {
         {this.state.isFull === false && <button id='fullscreenButton' onClick={this.goFull}>
           Go Fullscreen
         </button>}
-        {this.state.isFull === true && <button id='fullscreenButton' onClick={this.exitFull}>
+        {this.state.isFull === true && <button className='exitButton' id='fullscreenButton' onClick={this.exitFull}>
         Exit Fullscreen
       </button>}
         </Fullscreen>

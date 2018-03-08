@@ -85,6 +85,11 @@ app.get('/api/me', (req, res) => {
   // res.redirect('http://locahost:3000/#/login')
 });
 
+app.post('/api/insert',  (req, res) => {
+  console.log(req.body);
+  app.get('db').createNewUserAdmin([req.body.name, req.body.authid]).then(create => done(null, created[0]));
+});
+
 app.get('/api/admin', (req, res) => {
   app.get('db').getAllUserAdmins().then(response => {
     res.status(200).json(response);
@@ -112,6 +117,11 @@ app.put('/api/enable/:name', (req, res)=> {
   app.get('db').enableAdmin([req.params.name]).then(response => {
   })
   app.get('db').getAllUserAdmins().then(response => {
+    res.status(200).json(response);
+  })
+})
+app.get('/api/getallusers/', (req, res)=> {
+  app.get('db').getAllUsers().then(response => {
     res.status(200).json(response);
   })
 })
