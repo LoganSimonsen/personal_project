@@ -1,0 +1,1 @@
+DELETE from user_admins WHERE id = $1;

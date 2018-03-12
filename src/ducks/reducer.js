@@ -9,6 +9,7 @@ const ENABLE_ADMIN = "ENABLE_ADMIN";
 const DISABLE_ADMIN = "DISABLE_ADMIN";
 export const GET_ALL_USERS = "GET_ALL_USERS";
 export const CREATE_ADMIN = "CREATE_ADMIN";
+export const DELETE_ADMIN = "DELETE_ADMIN";
 
 // ACTION CREATORS
 
@@ -27,17 +28,32 @@ export function getUser() {
   };
 }
 
-export function createAdmin(name, authid) {
-  console.log('passed to reducer', name, authid);
+export function createAdmin(name, id) {
+  console.log('from reducer', id);
   return {
     type: CREATE_ADMIN,
     payload: axios
     .post('/api/insert', {
       name,
-      authid
+      id
     })
       .then(response => {
-        console.log('returned to reducer', response);
+      })
+      .catch(err => {
+        return err.message
+      })
+       
+  };
+}
+export function deleteAdmin(id) {
+  return {
+    type: DELETE_ADMIN,
+    payload: axios
+    .post(`/api/delete/`, {
+      id
+    })
+      .then(response => {
+        return response.data;
       })
       .catch(err => {
         return err.message
@@ -55,7 +71,6 @@ export function getUserAdmins() {
         return response.data;
       })
       .catch(err => {
-        console.log(err.message);
       })
        
   };
@@ -83,7 +98,6 @@ export function getAllUsers() {
   return {
     type: GET_ALL_USERS,
     payload: axios.get(`/api/getallusers/`).then(response => {
-      console.log('RESPONSE IN REQ: ', response)
       return response.data;
     })
   };
@@ -116,7 +130,6 @@ const initialState = {
 };
 
 export default function reducer(state = initialState, action) {
-  console.log(action);
   switch (action.type) {
     case `${GET_USER}_PENDING`:
       return Object.assign({}, state, { isLoading: true });

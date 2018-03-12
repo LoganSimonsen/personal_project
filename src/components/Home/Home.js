@@ -19,7 +19,7 @@ class Home extends Component {
         { this.props.user.id > 0  && <div className='buttonContainer'>
         <Link to='/Chart' className='LinkWrap'><button className='homeButtons'><h1>MONITOR</h1></button></Link>
 
-        <Link to='#' className='LinkWrap'><button className='homeButtons'><h1>REPORT</h1></button></Link>
+        <Link to='/Report' className='LinkWrap'><button className='homeButtons'><h1>REPORT</h1></button></Link>
 
         <Link to='/AdminPortal' className='LinkWrap'><button className='homeButtons'><h1>ADMINISTRATE</h1></button></Link>
 

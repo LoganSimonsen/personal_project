@@ -1,7 +1,8 @@
 import React, { Component } from "react";
-import {Line} from 'react-chartjs-2';
+import {Bar} from 'react-chartjs-2';
+import { Link } from 'react-router-dom';
 import { connect } from "react-redux";
-import { withRouter } from "react-router-dom";
+import { withRouter, Redirect } from "react-router-dom";
 import Fullscreen from "react-full-screen";
 
 import { getUser } from "../../ducks/reducer";
@@ -14,13 +15,13 @@ let chartOptions: {
     maintainAspectRatio: false
 }
 
-class LineChart extends Component {
+class BarChart extends Component {
     constructor(){
         super();
         this.state = {
             isFull: false,
-            theme: '#3D3A4B',
             marginTop: '',
+            theme: '#3D3A4B',
             height: 600,
             width: 200,
             chartData: {
@@ -37,6 +38,7 @@ class LineChart extends Component {
                         data: [60, 45, 82, 43, 35, 56, 33],
                         spanGaps: true,
                         borderColor:'rgb(41, 255, 56)',
+                        backgroundColor:'rgb(41, 255, 56)',
                         drawBorder: true,
                     },
                     {
@@ -78,11 +80,9 @@ class LineChart extends Component {
         this.props.getUser();
         setInterval(this.functionRunning, 3000);
         setInterval(this.functionRunning2, 3000);
-        console.log(window.location.href);
-        if(window.location.href.includes("LineChart")){
-            this.setState({marginTop: '120px'});
-        }
-
+        console.log('dems', window.innerWidth)
+        this.setState({height: window.innerHeight});
+        this.setState({width: window.innerWidth});
           }
     
     functionRunning(){
@@ -119,26 +119,25 @@ class LineChart extends Component {
         this.setState({theme: 'white'});
       }
     }
-
       render(){
         return (
             <Fullscreen 
           enabled={this.state.isFull}
           onChange={isFull => this.setState({isFull})}>
-            <div className='lineChartWrapper' >
+            <div className='BarChartWrapper'>
             {this.props.user.id > 0 && <div className='chart' style={{backgroundColor: this.state.theme, marginTop: this.state.marginTop}}>
-                    <Line className='lineChartInner' data={this.state.chartData} options={chartOptions}/>
+                    <Bar className='BarChartInner' data={this.state.chartData} options={chartOptions}/>
             </div>}
-            {window.location.href.includes("LineChart") && this.state.isFull === false && <button id='fullscreenButton' onClick={this.goFull}>
+            {window.location.href.includes("BarChart") && this.state.isFull === false && <button id='fullscreenButton' onClick={this.goFull}>
             Go Fullscreen
           </button>}
-          {window.location.href.includes("LineChart") && this.state.isFull === true && <button className='exitButton' id='fullscreenButton' onClick={this.exitFull}>
+          {window.location.href.includes("BarChart") && this.state.isFull === true && <button className='exitButton' id='fullscreenButton' onClick={this.exitFull}>
           Exit Fullscreen
         </button>}
-        {window.location.href.includes("LineChart") && <button id='toDarkThemeButton' onClick={this.changeTheme}>
+        {window.location.href.includes("BarChart") && <button id='toDarkThemeButton' onClick={this.changeTheme}>
          Theme
         </button>}
-        </div>
+            </div>
             </Fullscreen>
         )
     }
@@ -146,4 +145,4 @@ class LineChart extends Component {
 
     const mapStateToProps = state => state;
 
-    export default withRouter(connect(mapStateToProps, { getUser, logout})(LineChart));
+    export default withRouter(connect(mapStateToProps, { getUser, logout})(BarChart));

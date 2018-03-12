@@ -7,7 +7,10 @@ const passport = require("passport");
 const massive = require("massive");
 const Auth0Strategy = require('passport-auth0');
 const path = require('path');
+const bodyParser = require('body-parser');
+const Bundler = require('parcel-bundler');
 
+const twilio = require('twilio');
 const port = 3001;
 
 const app = express();
@@ -87,7 +90,7 @@ app.get('/api/me', (req, res) => {
 
 app.post('/api/insert',  (req, res) => {
   console.log(req.body);
-  app.get('db').createNewUserAdmin([req.body.name, req.body.authid]).then(create => done(null, created[0]));
+  app.get('db').createNewUserAdmin([req.body.name, req.body.id]).then(create => done(null, created[0]));
 });
 
 app.get('/api/admin', (req, res) => {
@@ -95,7 +98,6 @@ app.get('/api/admin', (req, res) => {
     res.status(200).json(response);
   })
 });
- 
 
 app.get('/api/logout', (req, res) => {
   req.session.destroy(()=>{
@@ -104,8 +106,13 @@ app.get('/api/logout', (req, res) => {
 });
 
 app.put('/api/disable/:name', (req, res)=> {
-  console.log(req.params.name);
   app.get('db').disableAdmin([req.params.name]).then(response => {
+  console.log('responseFromServer', response)});
+})
+
+app.post('/api/delete/', (req, res)=> {
+  console.log(req.body);
+  app.get('db').deleteAdmin([req.body.id]).then(response => {
   })
   app.get('db').getAllUserAdmins().then(response => {
     res.status(200).json(response);
@@ -113,7 +120,6 @@ app.put('/api/disable/:name', (req, res)=> {
 })
 
 app.put('/api/enable/:name', (req, res)=> {
-  console.log(req.params.name);
   app.get('db').enableAdmin([req.params.name]).then(response => {
   })
   app.get('db').getAllUserAdmins().then(response => {
@@ -125,41 +131,38 @@ app.get('/api/getallusers/', (req, res)=> {
     res.status(200).json(response);
   })
 })
-// FOR TESTING PURPOSES
 
-// app.get("/api/test", (req, res) => {
-//   req.app
-//     .get("db")
-//     .getUser()
-//     .then(response => {
-//       res.status(200).json(response);
-//     })
-//     .catch(err => {
-//       res.status(500).json(err);
-//     });
-// });
+let bundler = new Bundler('src/index.html')
 
-// FOR PRODUCTION ONLY!!!
-// app.get('*', (req, res) => {
-//   res.sendFile(path.join(__dirname, '../build/index/html'));
-// })
+app.use(bodyParser.json())
 
-// let transDataArr = [];
-// function myFunc() {
-//   if(transDataArr.length >= 7){
-//     transDataArr = transDataArr.slice(1);
-//   }
-// transDataArr.push(Math.floor(Math.random()*100));
-// console.log(transDataArr);
-// }
+app.post('/api/send', (req, res) => {
+  let SID = process.env.TWILIO_SID;
+  let TOKEN = process.env.TWILIO_TOKEN;
+  let SENDER = '+14696091079';
+  console.log(SID, TOKEN, SENDER);
+  if(!SID || !TOKEN) {
+    return res.json({message: 'add TWILIO_SID and TWILIO_TOKEN to .env file.'})
+  }
 
-// setInterval(myFunc, 5000);
+  let client = require('twilio')(SID, TOKEN)
+  console.log(req.body.recipient);
+  console.log('client', client);
+  client.messages.create({
+    to: req.body.recipient,
+    from: SENDER,
+    body: "Please join the following conference bridge line ASAP regarding a priority 1 incident: 10001234567,,9876543"
+  }, (err, responseData) => {
+    if (!err) {
+      res.json({
+        From: responseData.from, 
+        Body: responseData.body
+      })
+    }
+  });
+})
 
-// app.get(`/api/gettrans`, (req, res)=>{
-//   console.log('something');
-//   res = transDataArr;
-//   res.status(200).json(response);
-// })
+app.use(bundler.middleware())
 
 app.listen(port, () => {
   console.log(`Listening on Port: ${port}`);

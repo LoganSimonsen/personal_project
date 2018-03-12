@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
-import { getAllUsers, getUserAdmins, enableAdmin, disableAdmin, createAdmin } from "../../ducks/reducer";
+import { getAllUsers, getUserAdmins, enableAdmin, disableAdmin, createAdmin, deleteAdmin } from "../../ducks/reducer";
 import swal from 'sweetalert';
 
 import axios from 'axios';
@@ -22,28 +22,15 @@ class AdminPortal extends Component {
         this.handleChange = this.handleChange.bind(this);
         this.handleChange2 = this.handleChange2.bind(this);
         this.createAdmin = this.createAdmin.bind(this);
+        this.deleteAdmin = this.deleteAdmin.bind(this);
     }
     componentDidMount(){
         this.props.getUserAdmins();
         this.props.getAllUsers();
-        // this.props.getUserAdmins().then(response => {
-        //     this.setState({rawData: response.action.payload});
-        // });   
-        // setInterval(function(){
-        //     axios.get(`/api/gettrans`).then(results=>{
-        //         console.log('interval');
-        //         console.log('getinterval', results)});
-        //     },5001);
     }
 
-    // componentWillUpdate(nextProps, nextState) {
-    //     if (nextState.open == true && this.state.open == false) {
-    //       this.props.onWillOpen();
-    //     }
-    //   }
 
     shouldComponentUpdate() {
-        console.log('Hit');
         return true;
     }
     
@@ -66,12 +53,7 @@ class AdminPortal extends Component {
                 icon: "success",
               });
               this.props.disableAdmin(name);
-            //   axios.put(`/api/disable/${name}`).then(results=>{
-                //   console.log('disable', results);
-                //   this.setState({rawData: results.data}, this.forceUpdate());
-                //   console.log('currentState', this.props.userAdmins);
-                //   componentShouldUpdate(){return true};
-                // }).catch(console.log);
+              this.props.getUserAdmins();
             } else {
               swal("Action Successfully Canceled");
               return;
@@ -92,22 +74,16 @@ enableUser(name, isadmin){
           swal("Very Well...", {
             icon: "success",
           });
-          this.props.enableAdmin(name)
-        //   axios.put(`/api/enable/${name}`).then(results=>{
-        //     console.log('disable', results);
-        //     console.log('currentState', this.state.rawData);
-        //     this.setState({rawData: results.data}, this.forceUpdate());
-            // componentShouldUpdate(){return true};
-        //   }).catch(console.log)
+          this.props.enableAdmin(name);
+          this.props.getUserAdmins();
         } else {
           swal("Action Successfully Canceled");
           return;
         }
-        
       });
 }
 
-createAdmin(name, authid){
+createAdmin(name, id){
     swal({
         title: "Are you sure you want to add this Admin?",
         text: '',
@@ -120,13 +96,8 @@ createAdmin(name, authid){
           swal("Very Well...", {
             icon: "success",
           });
-          this.props.createAdmin(name, authid)
-        //   axios.put(`/api/enable/${name}`).then(results=>{
-        //     console.log('disable', results);
-        //     console.log('currentState', this.state.rawData);
-        //     this.setState({rawData: results.data}, this.forceUpdate());
-            // componentShouldUpdate(){return true};
-        //   }).catch(console.log)
+          this.props.createAdmin(name, id);
+          this.props.getUserAdmins();
         } else {
           swal("Action Successfully Canceled");
           return;
@@ -134,20 +105,37 @@ createAdmin(name, authid){
         
       });
 }
-
+deleteAdmin(id){
+    swal({
+        title: "Are you sure you want to delete this Admin?",
+        text: '',
+        icon: "warning",
+        buttons: true,
+        dangerMode: true,
+      })
+      .then((willDelete) => {
+        if (willDelete) {
+          swal("Very Well...", {
+            icon: "success",
+          });
+          this.props.deleteAdmin(id);
+    this.props.getUserAdmins();
+        } else {
+          swal("Action Successfully Canceled");
+          return;
+        }
+    });
+}
 handleChange(event) {
     this.setState({value: event.target.value});
   }
   handleChange2(event) {
-    console.log(event.target.value);
     this.setState({value2: event.target.value});
   }
 
   
 
 formSubmit(event){
-    // that = this;
-    console.log('target values', this.state.value, this.state.value2);
     swal({
         title: "Are you sure you want to add this Admin?",
         text: "Once added, user will have access to Admin functions",
@@ -171,28 +159,24 @@ formSubmit(event){
 }
 
       render(){
-          console.log('RERENDER', this.props.userAdmins)
           const {formSubmit} = this.state;
            let results = this.props.userAdmins.map((data, i) => {
-               console.log('DATA: ', data)
                let name = data.name;
             return <tr key={`${data.name}${i}`}>
             <td>{data.name}</td><td>{data.authid}</td><td>{data.isadmin === 1 && 
                 <button className="button-success pure-button" type="submit" onClick={() => { this.disableUser(name, data.isadmin);
-                console.log('In MAP: ', this.props.userAdmins[i]);
                 }}>True</button>}
 
           {data.isadmin === 0 && <button className="button-warning pure-button" onClick={() => { this.enableUser(name, data.isadmin);
          }}>False</button>}
+         <button className="button-error pure-button" onClick={() => { this.deleteAdmin(parseInt(data.id));}}>X</button>
         </td>
             </tr>
           })
-
           let userResults = this.props.allUsers.map((data, i) => {
-            console.log('DATA: ', data)
             let names = data.name;
          return <tr key={`${data.names}${i}`}>
-         <td>{data.id}</td><td className='wordWrap'>{data.name}</td><td>{data.authid}</td><td><button className="button-warning pure-button" onClick={() => { this.createAdmin(data.name, data.authid);
+         <td>{data.id}</td><td className='wordWrap'>{data.name}</td><td>{data.authid}</td><td><button className="button-warning pure-button" onClick={() => { this.createAdmin(data.name, data.id);
          }}>+</button></td></tr>
           });
         return (
@@ -231,4 +215,4 @@ formSubmit(event){
 
     const mapStateToProps = state => state;
 
-    export default withRouter(connect(mapStateToProps, { getAllUsers, getUserAdmins, enableAdmin, disableAdmin, createAdmin })(AdminPortal));
+    export default withRouter(connect(mapStateToProps, { getAllUsers, getUserAdmins, enableAdmin, disableAdmin, createAdmin, deleteAdmin })(AdminPortal));

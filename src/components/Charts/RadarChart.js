@@ -1,7 +1,8 @@
 import React, { Component } from "react";
-import {Line} from 'react-chartjs-2';
+import {Radar} from 'react-chartjs-2';
+import { Link } from 'react-router-dom';
 import { connect } from "react-redux";
-import { withRouter } from "react-router-dom";
+import { withRouter, Redirect } from "react-router-dom";
 import Fullscreen from "react-full-screen";
 
 import { getUser } from "../../ducks/reducer";
@@ -14,13 +15,14 @@ let chartOptions: {
     maintainAspectRatio: false
 }
 
-class LineChart extends Component {
+class RadarChart extends Component {
     constructor(){
         super();
         this.state = {
             isFull: false,
-            theme: '#3D3A4B',
             marginTop: '',
+            theme: '#3D3A4B',
+            counter: 0,
             height: 600,
             width: 200,
             chartData: {
@@ -79,9 +81,6 @@ class LineChart extends Component {
         setInterval(this.functionRunning, 3000);
         setInterval(this.functionRunning2, 3000);
         console.log(window.location.href);
-        if(window.location.href.includes("LineChart")){
-            this.setState({marginTop: '120px'});
-        }
 
           }
     
@@ -125,17 +124,17 @@ class LineChart extends Component {
             <Fullscreen 
           enabled={this.state.isFull}
           onChange={isFull => this.setState({isFull})}>
-            <div className='lineChartWrapper' >
+            <div className='RadarChartWrapper' >
             {this.props.user.id > 0 && <div className='chart' style={{backgroundColor: this.state.theme, marginTop: this.state.marginTop}}>
-                    <Line className='lineChartInner' data={this.state.chartData} options={chartOptions}/>
+                    <Radar className='RadarChartInner' data={this.state.chartData} options={chartOptions}/>
             </div>}
-            {window.location.href.includes("LineChart") && this.state.isFull === false && <button id='fullscreenButton' onClick={this.goFull}>
+            {window.location.href.includes("RadarChart") && this.state.isFull === false && <button id='fullscreenButton' onClick={this.goFull}>
             Go Fullscreen
           </button>}
-          {window.location.href.includes("LineChart") && this.state.isFull === true && <button className='exitButton' id='fullscreenButton' onClick={this.exitFull}>
+          {window.location.href.includes("RadarChart") && this.state.isFull === true && <button className='exitButton' id='fullscreenButton' onClick={this.exitFull}>
           Exit Fullscreen
         </button>}
-        {window.location.href.includes("LineChart") && <button id='toDarkThemeButton' onClick={this.changeTheme}>
+        {window.location.href.includes("RadarChart") && <button id='toDarkThemeButton' onClick={this.changeTheme}>
          Theme
         </button>}
         </div>
@@ -146,4 +145,4 @@ class LineChart extends Component {
 
     const mapStateToProps = state => state;
 
-    export default withRouter(connect(mapStateToProps, { getUser, logout})(LineChart));
+    export default withRouter(connect(mapStateToProps, { getUser, logout})(RadarChart));

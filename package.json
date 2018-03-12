@@ -5,6 +5,7 @@
   "dependencies": {
     "axios": "^0.18.0",
     "body-parser": "^1.18.2",
+    "bundler": "^0.8.0",
     "chart.js": "^2.7.1",
     "cors": "^2.8.4",
     "dotenv": "^5.0.0",
@@ -12,6 +13,7 @@
     "express-session": "^1.15.6",
     "fetch": "^1.1.0",
     "massive": "^4.6.6",
+    "parcel-bundler": "^1.6.2",
     "passport": "^0.4.0",
     "passport-auth0": "^0.6.1",
     "react": "^16.2.0",
@@ -24,7 +26,8 @@
     "redux": "^3.7.2",
     "redux-promise-middleware": "^5.0.0",
     "sweetalert": "^2.1.0",
-    "twilio": "^3.13.0"
+    "twilio": "^3.13.0",
+    "whatwg-fetch": "^2.0.3"
   },
   "scripts": {
     "start": "react-scripts start",
