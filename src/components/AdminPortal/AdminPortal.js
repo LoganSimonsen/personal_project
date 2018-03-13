@@ -29,6 +29,7 @@ class AdminPortal extends Component {
     this.handleChange2 = this.handleChange2.bind(this);
     this.createAdmin = this.createAdmin.bind(this);
     this.deleteAdmin = this.deleteAdmin.bind(this);
+    this.refreshLists = this.refreshLists.bind(this);
   }
   componentDidMount() {
     this.props.getUserAdmins();
@@ -55,6 +56,7 @@ class AdminPortal extends Component {
             icon: "success"
           });
           this.props.disableAdmin(name);
+          this.refreshLists();
           this.props.getUserAdmins();
         } else {
           swal("Action Successfully Canceled");
@@ -76,6 +78,7 @@ class AdminPortal extends Component {
           icon: "success"
         });
         this.props.enableAdmin(name);
+        this.refreshLists();
         this.props.getUserAdmins();
       } else {
         swal("Action Successfully Canceled");
@@ -97,6 +100,7 @@ class AdminPortal extends Component {
           icon: "success"
         });
         this.props.createAdmin(name, id);
+        this.refreshLists();
         this.props.getUserAdmins();
       } else {
         swal("Action Successfully Canceled");
@@ -117,6 +121,7 @@ class AdminPortal extends Component {
           icon: "success"
         });
         this.props.deleteAdmin(id);
+        this.refreshLists();
         this.props.getUserAdmins();
       } else {
         swal("Action Successfully Canceled");
@@ -129,6 +134,13 @@ class AdminPortal extends Component {
   }
   handleChange2(event) {
     this.setState({ value2: event.target.value });
+  }
+
+  refreshLists() {
+    this.props.getAllUsers();
+    this.props.getUserAdmins();
+    this.props.getAllUsers();
+    this.props.getUserAdmins();
   }
 
   render() {

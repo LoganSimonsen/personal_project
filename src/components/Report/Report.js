@@ -64,7 +64,9 @@ class Report extends Component {
               value={this.state.recipient}
               placeholder="+12223334444"
             />
-            <button onClick={this.sendSms}>Send SMS</button>
+            <button className="pure-button" onClick={this.sendSms}>
+              Send SMS
+            </button>
             <p>
               OUTGOING MESSAGE TEXT: "Please join the following conference
               bridge line ASAP regarding a priority 1 incident:

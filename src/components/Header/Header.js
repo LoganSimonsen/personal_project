@@ -31,6 +31,8 @@ class Header extends Component {
     this.closeNav();
     this.props.logout();
     this.props.getUser();
+    this.props.logout();
+    this.props.getUser();
   }
   openNav() {
     document.getElementById("mySidenav").style.width = "250px";
@@ -81,7 +83,7 @@ class Header extends Component {
             &times;
           </a>
           <Link to="/">Home</Link>
-          <Link to="/Chart">Monitoring</Link>
+          <Link to="/Chart">Monitor</Link>
           <Link to="/Report">Report</Link>
           <Link to="/AdminPortal">Admin</Link>
           <a href={process.env.REACT_APP_LOGOUT} onClick={this.handleClick}>

@@ -33,7 +33,8 @@ app.use(json());
 app.use(cors());
 
 // USED FOR SERVING PRODUCTION FILES!!!!!
-// app.use(express.static(`${__dirname}/../build/`)); // CREATES AN OPTIMIZED BUNDLE OF BUILD FOLDER
+app.use(express.static(`${__dirname}/../build/`)); // CREATES AN OPTIMIZED
+// BUNDLE OF BUILD FOLDER
 
 app.use(
   session({
@@ -81,19 +82,17 @@ passport.deserializeUser((user, done) => done(null, user));
 app.get(
   "/auth",
   passport.authenticate("auth0", {
-    successRedirect: "http://localhost:3000/#/",
-    failureRedirect: "http://locahost:3000/#/login"
+    successRedirect: "/#/",
+    failureRedirect: "/#/"
   })
 );
 
 app.get("/api/me", (req, res) => {
   if (req.user) res.status(200).json(req.user);
   else res.status(400).json({ message: "User not logged in!" });
-  // res.redirect('http://locahost:3000/#/login')
 });
 
 app.post("/api/insert", (req, res) => {
-  console.log(req.body);
   app
     .get("db")
     .createNewUserAdmin([req.body.name, req.body.id])
@@ -111,7 +110,7 @@ app.get("/api/admin", (req, res) => {
 
 app.get("/api/logout", (req, res) => {
   req.session.destroy(() => {
-    successRedirect: "http://localhost:3000/#/login";
+    successRedirect: "/#/";
   });
 });
 
@@ -125,7 +124,6 @@ app.put("/api/disable/:name", (req, res) => {
 });
 
 app.post("/api/delete/", (req, res) => {
-  console.log(req.body);
   app
     .get("db")
     .deleteAdmin([req.body.id])
@@ -175,24 +173,24 @@ app.post("/api/send", (req, res) => {
   }
 
   let client = require("twilio")(SID, TOKEN);
-  console.log(req.body.recipient);
-  console.log("client", client);
   client.messages.create(
     {
       to: req.body.recipient,
       from: SENDER,
       body:
-        "Please join the following conference bridge line ASAP regarding a priority 1 incident: 10001234567,,9876543"
+        "Please join the following conference bridge line ASAP regarding a priority 1 inc" +
+        "ident: 10001234567,,9876543"
     },
     (err, responseData) => {
       if (!err) {
-        res.json({
-          From: responseData.from,
-          Body: responseData.body
-        });
+        res.json({ From: responseData.from, Body: responseData.body });
       }
     }
   );
+});
+
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "../build/index.html"));
 });
 
 app.use(bundler.middleware());
