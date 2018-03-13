@@ -8,23 +8,17 @@ import Header from "./components/Header/Header";
 import Chart from "./components/Charts/Chart";
 
 class App extends Component {
-  constructor(){
-  super();
-  this.state = {
-    isFull: false,
-    }
-}
+  constructor() {
+    super();
+    this.state = {
+      isFull: false
+    };
+  }
 
-// goFull = () => {
-//   this.setState({ isFull: true });
-// }
-// exitFull = () => {
-//   this.setState({ isFull: false });
-// }
   render() {
     return (
-      <div className='entireApp'>
-        <Header />  
+      <div className="entireApp">
+        <Header />
         {routes}
       </div>
     );
