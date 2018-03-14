@@ -67,7 +67,7 @@ passport.use(
             app
               .get("db")
               .createUserByAuthid([profile.id, profile.displayName])
-              .then(create => done(null, created[0]));
+              .then(create => done(null, create[0]));
           } else {
             return done(null, response[0]);
           }
@@ -82,8 +82,8 @@ passport.deserializeUser((user, done) => done(null, user));
 app.get(
   "/auth",
   passport.authenticate("auth0", {
-    successRedirect: "/#/",
-    failureRedirect: "/#/"
+    successRedirect: "www.dashyboards.com",
+    failureRedirect: "www.dashyboards.com"
   })
 );
 
@@ -118,9 +118,7 @@ app.put("/api/disable/:name", (req, res) => {
   app
     .get("db")
     .disableAdmin([req.params.name])
-    .then(response => {
-      console.log("responseFromServer", response);
-    });
+    .then(response => {});
 });
 
 app.post("/api/delete/", (req, res) => {
@@ -165,7 +163,6 @@ app.post("/api/send", (req, res) => {
   let SID = process.env.TWILIO_SID;
   let TOKEN = process.env.TWILIO_TOKEN;
   let SENDER = "+14696091079";
-  console.log(SID, TOKEN, SENDER);
   if (!SID || !TOKEN) {
     return res.json({
       message: "add TWILIO_SID and TWILIO_TOKEN to .env file."

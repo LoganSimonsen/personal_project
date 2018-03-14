@@ -22,43 +22,38 @@ export function getUser() {
         return response.data;
       })
       .catch(err => {
-        return err.message
+        return err.message;
       })
-       
   };
 }
 
 export function createAdmin(name, id) {
-  console.log('from reducer', id);
   return {
     type: CREATE_ADMIN,
     payload: axios
-    .post('/api/insert', {
-      name,
-      id
-    })
-      .then(response => {
+      .post("/api/insert", {
+        name,
+        id
       })
+      .then(response => {})
       .catch(err => {
-        return err.message
+        return err.message;
       })
-       
   };
 }
 export function deleteAdmin(id) {
   return {
     type: DELETE_ADMIN,
     payload: axios
-    .post(`/api/delete/`, {
-      id
-    })
+      .post(`/api/delete/`, {
+        id
+      })
       .then(response => {
         return response.data;
       })
       .catch(err => {
-        return err.message
+        return err.message;
       })
-       
   };
 }
 
@@ -70,9 +65,7 @@ export function getUserAdmins() {
       .then(response => {
         return response.data;
       })
-      .catch(err => {
-      })
-       
+      .catch(err => {})
   };
 }
 
@@ -82,7 +75,7 @@ export function enableAdmin(name) {
     payload: axios.put(`/api/enable/${name}`).then(response => {
       return response.data;
     })
-  }
+  };
 }
 
 export function disableAdmin(name) {
@@ -91,7 +84,7 @@ export function disableAdmin(name) {
     payload: axios.put(`/api/disable/${name}`).then(response => {
       return response.data;
     })
-  }
+  };
 }
 
 export function getAllUsers() {
@@ -112,9 +105,8 @@ export function logout() {
         return response.data;
       })
       .catch(err => {
-        return err.message
+        return err.message;
       })
-       
   };
 }
 
@@ -141,10 +133,10 @@ export default function reducer(state = initialState, action) {
       });
 
     case `${GET_USER}_REJECTED`:
-      return Object.assign({}, state, { 
-          isLoading: false, 
-          didErr: true, 
-          errMessage: action.payload 
+      return Object.assign({}, state, {
+        isLoading: false,
+        didErr: true,
+        errMessage: action.payload
       });
 
     case `${GET_USER_ADMINS}_FULFILLED`:
@@ -154,9 +146,9 @@ export default function reducer(state = initialState, action) {
       return Object.assign({}, state, { allUsers: action.payload });
     case `${ENABLE_ADMIN}_FULFILLED`:
       return Object.assign({}, state, { userAdmins: action.payload });
-      case `${DISABLE_ADMIN}_FULFILLED`:
+    case `${DISABLE_ADMIN}_FULFILLED`:
       return Object.assign({}, state, { userAdmins: action.payload });
-      
+
     default:
       return state;
   }

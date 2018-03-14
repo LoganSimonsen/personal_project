@@ -19,6 +19,7 @@ class Header extends Component {
     this.handleClick = this.handleClick.bind(this);
     this.openNav = this.openNav.bind(this);
     this.closeNav = this.closeNav.bind(this);
+    this.pageRefresh = this.pageRefresh.bind(this);
   }
   componentDidMount() {
     this.props.getUser().then(response => {
@@ -31,6 +32,9 @@ class Header extends Component {
     this.closeNav();
     this.props.logout();
     this.props.getUser();
+    this.pageRefresh();
+  }
+  pageRefresh() {
     this.props.logout();
     this.props.getUser();
   }
@@ -52,12 +56,15 @@ class Header extends Component {
           <div className="loginButtonWrapper">
             <a href={process.env.REACT_APP_LOGIN}>
               {this.props.user.id === undefined && (
-                <p className="button-small pure-button loginButton">
+                <span className="button-small pure-button loginButton">
                   <h1>Welcome to DashyBoards!</h1>
                   <br />
                   <h4>Click to Login</h4>
-                  <img src="http://www.favicon.cc/logo3d/914733.png" />
-                </p>
+                  <img
+                    src="http://www.favicon.cc/logo3d/914733.png"
+                    alt="./logo.png"
+                  />
+                </span>
               )}
             </a>
           </div>

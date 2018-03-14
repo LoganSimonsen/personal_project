@@ -116,19 +116,44 @@ class LineChart extends Component {
         onChange={isFull => this.setState({ isFull })}
       >
         <div className="lineChartWrapper">
-          {this.props.user.id > 0 && (
-            <div
-              className="chart"
-              style={{
-                backgroundColor: this.state.theme,
-                marginTop: this.state.marginTop
-              }}
-            >
-              <Line
-                className="lineChartInner"
-                data={this.state.chartData}
-                options={chartOptions}
-              />
+          <div>
+            {window.location.href.includes("LineChart") && (
+              <div>
+                {this.props.user.id > 0 && (
+                  <div
+                    className="charty"
+                    style={{
+                      backgroundColor: this.state.theme,
+                      marginTop: this.state.marginTop
+                    }}
+                  >
+                    <Line
+                      className="lineChartInner"
+                      data={this.state.chartData}
+                      options={chartOptions}
+                    />
+                  </div>
+                )}
+              </div>
+            )}
+          </div>
+          {window.location.href.includes("Chart") && (
+            <div>
+              {this.props.user.id > 0 && (
+                <div
+                  className="chart"
+                  style={{
+                    backgroundColor: this.state.theme,
+                    marginTop: this.state.marginTop
+                  }}
+                >
+                  <Line
+                    className="lineChartInner"
+                    data={this.state.chartData}
+                    options={chartOptions}
+                  />
+                </div>
+              )}
             </div>
           )}
           {window.location.href.includes("LineChart") &&

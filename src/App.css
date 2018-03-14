@@ -25,8 +25,15 @@
   position: fixed;
   bottom: 5px;
   left: 5px;
+  color: transparent;
   background: transparent;
   padding: 15px 5px 15px 5px;
+  border: transparent;
+}
+#fullscreenButton:hover {
+  background: transparent;
+  padding: 15px 5px 15px 5px;
+  color: black;
   border: solid black;
   box-shadow: 5px 5px 0px black;
   border-radius: 10px;
@@ -38,6 +45,14 @@
   left: 135px;
   background: transparent;
   padding: 15px 5px 15px 5px;
+  color: transparent;
+  background: transparent;
+  padding: 15px 5px 15px 5px;
+  border: transparent;
+}
+#toDarkThemeButton:hover {
+  background: transparent;
+  color: black;
   border: solid black;
   box-shadow: 5px 5px 0px black;
   border-radius: 10px;
@@ -195,6 +210,9 @@
   /* height: 100vh; */
   vertical-align: middle;
 }
+div.charty > canvas {
+  height: 100vh !important;
+}
 .lineChartViewport {
   height: 50%;
   width: 50%;
@@ -253,19 +271,14 @@ td {
 }
 .loginButton {
   position: fixed;
-  margin-left: 40vw;
-  top: 22vh;
+  top: 50%;
+  left: 50%;
+  margin-left: -170px;
+  margin-top: -300px;
   text-align: center;
   vertical-align: middle;
   padding: 5px;
-  /* width: 300px; */
-  /* color: black;
-  border: solid;
-  border-radius: 25px; */
   background-color: transparent;
-  /* box-shadow: 10px 10px 0px black ;
-  -webkit-transform: rotateX(20deg);
-  text-shadow: 1px 1px 2px orange; */
 }
 
 .button-success,
@@ -340,6 +353,9 @@ td {
   transition: margin-left 0.5s;
   padding: 20px;
 }
+.chartjs-size-monitor > canvas {
+  height: 100vh !important;
+}
 
 @media screen and (max-width: 900px) {
   .welcomeHeader {
@@ -354,12 +370,15 @@ td {
     width: 95%;
   }
   .loginButton {
-    position: fixed;
-    margin-left: 17vw;
     zoom: 0.8;
   }
   td {
     max-width: 100px;
+  }
+}
+@media screen and (max-height: 690px) {
+  .loginButton {
+    zoom: 0.5;
   }
 }
 @media screen and (min-width: 900px) {

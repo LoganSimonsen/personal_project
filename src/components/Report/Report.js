@@ -31,7 +31,6 @@ class Report extends Component {
         adminCheck = true;
       }
     });
-    console.log(adminCheck);
     if (adminCheck === true) {
       fetch("/api/send", {
         method: "POST",
@@ -40,9 +39,7 @@ class Report extends Component {
           "Content-Type": "application/JSON"
         },
         body: JSON.stringify({ recipient: this.state.recipient })
-      }).then(resp => {
-        console.log(resp);
-      });
+      }).then(resp => {});
       swal("Message Sent Successfully!");
     } else {
       swal("This function is restricted to administrators");
