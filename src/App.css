@@ -360,6 +360,9 @@ td {
 .chartjs-size-monitor > canvas {
   height: 100vh !important;
 }
+.button-xlarge {
+  font-size: 125%;
+}
 
 @media screen and (max-width: 900px) {
   .welcomeHeader {

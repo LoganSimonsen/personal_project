@@ -17,6 +17,9 @@ class AdminPortal extends Component {
   constructor() {
     super();
     this.state = {
+      num1: -1,
+      num2: 1,
+      initial: false,
       rawData: [],
       userAdminsArr: [],
       counter: 1,
@@ -30,6 +33,7 @@ class AdminPortal extends Component {
     this.createAdmin = this.createAdmin.bind(this);
     this.deleteAdmin = this.deleteAdmin.bind(this);
     this.refreshLists = this.refreshLists.bind(this);
+    this.listToggle = this.listToggle.bind(this);
   }
   componentDidMount() {
     this.props.getUserAdmins();
@@ -142,6 +146,16 @@ class AdminPortal extends Component {
     this.props.getAllUsers();
     this.props.getUserAdmins();
   }
+  listToggle() {
+    let x = this.state.initialNum;
+    this.setState({ initial: false });
+    this.refreshLists();
+  }
+  listToggle2() {
+    let x = this.state.initialNum;
+    this.setState({ initial: true });
+    this.refreshLists();
+  }
 
   render() {
     let results = this.props.userAdmins.map((data, i) => {
@@ -185,7 +199,27 @@ class AdminPortal extends Component {
         </tr>
       );
     });
-    let userResults = this.props.allUsers.slice(0, 14).map((data, i) => {
+    let userResults = this.props.allUsers.slice(0, 10).map((data, i) => {
+      let names = data.name;
+      return (
+        <tr key={`${data.names}${i}`}>
+          <td>{data.id}</td>
+          <td className="wordWrap">{data.name}</td>
+          <td>{data.authid}</td>
+          <td>
+            <button
+              className="button-warning pure-button"
+              onClick={() => {
+                this.createAdmin(data.name, data.id);
+              }}
+            >
+              +
+            </button>
+          </td>
+        </tr>
+      );
+    });
+    let userResults2 = this.props.allUsers.slice(10).map((data, i) => {
       let names = data.name;
       return (
         <tr key={`${data.names}${i}`}>
@@ -223,9 +257,27 @@ class AdminPortal extends Component {
             </table>
             <br />
             <h3> Users</h3>
+
             <table className="pure-table pure-table-bordered center">
-              <thead>{userResults}</thead>
+              {this.state.initial === false && <thead>{userResults}</thead>}
             </table>
+
+            <table className="pure-table pure-table-bordered center">
+              {this.state.initial === true && <thead> {userResults2}</thead>}
+            </table>
+
+            <button
+              className="pure-button pure-button-primary button-xlarge"
+              onClick={() => this.listToggle()}
+            >
+              &#8249;
+            </button>
+            <button
+              className="pure-button pure-button-primary button-xlarge"
+              onClick={() => this.listToggle2()}
+            >
+              &#8250;
+            </button>
           </div>
         )}
       </div>

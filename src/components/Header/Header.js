@@ -45,6 +45,7 @@ class Header extends Component {
     document.getElementById("mySidenav").style.width = "0";
   }
   render() {
+    let imgCondition = temp;
     temp = temp.replace(/github|/gi, "");
     temp = temp.replace(/\|/g, "");
     let imgTemp =
@@ -68,13 +69,21 @@ class Header extends Component {
               )}
             </a>
           </div>
-          {this.props.user.authid && (
+          {imgCondition.includes("github") && (
             <img
               className="profileImage"
               src={imgTemp}
               alt="http://s3.amazonaws.com/37assets/svn/765-default-avatar.png"
             />
           )}
+          {!imgCondition.includes("github") &&
+            this.props.user.id > 0 && (
+              <img
+                className="profileImage"
+                src="http://s3.amazonaws.com/37assets/svn/765-default-avatar.png"
+                alt="http://s3.amazonaws.com/37assets/svn/765-default-avatar.png"
+              />
+            )}
           {this.props.user ? (
             <div>
               {this.props.user.id > 0 && (
