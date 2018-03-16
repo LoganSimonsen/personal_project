@@ -23,27 +23,48 @@ class Chart extends Component {
   render() {
     return (
       <div className="chartWrapper">
-        <div className="lineChartViewport">
-          <a href="/#/LineChart">
-            <LineChart href="/LineChart">View</LineChart>
-          </a>
-        </div>
-        <div className="lineChartViewport">
-          <a href="/#/BarChart">
-            <BarChart />
-          </a>
-        </div>
-        <div className="lineChartViewport">
-          <a href="/#/RadarChart">
-            <RadarChart />
-          </a>
-        </div>
-
-        <div className="lineChartViewport">
-          <a href="/#/DoughnutChart">
-            <DoughnutChart />
-          </a>
-        </div>
+        {window.screen.width > 900 && (
+          <div className="lineChartViewport">
+            <a href="/#/LineChart">
+              <LineChart />
+            </a>
+          </div>
+        )}
+        {window.screen.width < 900 && (
+          <div className="lineChartViewport">
+            <a>
+              <LineChart />
+            </a>
+          </div>
+        )}
+        {window.screen.width > 900 && (
+          <div className="lineChartViewport">
+            <a href="/#/BarChart">
+              <BarChart />
+            </a>
+          </div>
+        )}
+        {window.screen.width < 900 && (
+          <div className="lineChartViewport">
+            <a>
+              <BarChart />
+            </a>
+          </div>
+        )}
+        {window.screen.width > 900 && (
+          <div className="lineChartViewport">
+            <a href="/#/RadarChart">
+              <RadarChart />
+            </a>
+          </div>
+        )}
+        {window.screen.width < 900 && (
+          <div className="lineChartViewport">
+            <a>
+              <RadarChart />
+            </a>
+          </div>
+        )}
       </div>
     );
   }

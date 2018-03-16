@@ -158,7 +158,11 @@ class LineChart extends Component {
           )}
           {window.location.href.includes("LineChart") &&
             this.state.isFull === false && (
-              <button id="fullscreenButton" onClick={this.goFull}>
+              <button
+                id="fullscreenButton"
+                style={{ color: "white" }}
+                onClick={this.goFull}
+              >
                 Go Fullscreen
               </button>
             )}

@@ -113,25 +113,54 @@ class BarChart extends Component {
         enabled={this.state.isFull}
         onChange={isFull => this.setState({ isFull })}
       >
-        <div className="BarChartWrapper">
-          {this.props.user.id > 0 && (
-            <div
-              className="chart"
-              style={{
-                backgroundColor: this.state.theme,
-                marginTop: this.state.marginTop
-              }}
-            >
-              <Bar
-                className="BarChartInner"
-                data={this.state.chartData}
-                options={chartOptions}
-              />
+        <div className="lineChartWrapper">
+          <div>
+            {window.location.href.includes("BarChart") && (
+              <div>
+                {this.props.user.id > 0 && (
+                  <div
+                    className="charty"
+                    style={{
+                      backgroundColor: this.state.theme,
+                      marginTop: this.state.marginTop
+                    }}
+                  >
+                    <Bar
+                      className="lineChartInner"
+                      data={this.state.chartData}
+                      options={chartOptions}
+                    />
+                  </div>
+                )}
+              </div>
+            )}
+          </div>
+          {window.location.href.includes("Chart") && (
+            <div>
+              {this.props.user.id > 0 && (
+                <div
+                  className="chart"
+                  style={{
+                    backgroundColor: this.state.theme,
+                    marginTop: this.state.marginTop
+                  }}
+                >
+                  <Bar
+                    className="lineChartInner"
+                    data={this.state.chartData}
+                    options={chartOptions}
+                  />
+                </div>
+              )}
             </div>
           )}
           {window.location.href.includes("BarChart") &&
             this.state.isFull === false && (
-              <button id="fullscreenButton" onClick={this.goFull}>
+              <button
+                id="fullscreenButton"
+                style={{ color: "white" }}
+                onClick={this.goFull}
+              >
                 Go Fullscreen
               </button>
             )}

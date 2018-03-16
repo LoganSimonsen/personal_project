@@ -89,17 +89,26 @@ class Header extends Component {
           <a href="javascript:void(0)" class="closebtn" onClick={this.closeNav}>
             &times;
           </a>
-          <Link to="/">Home</Link>
-          <Link to="/Chart">Monitor</Link>
-          <Link to="/Report">Report</Link>
-          <Link to="/AdminPortal">Admin</Link>
+          <Link to="/" onClick={this.closeNav}>
+            Home
+          </Link>
+          <Link to="/Chart" onClick={this.closeNav}>
+            Monitor
+          </Link>
+          <Link to="/Report" onClick={this.closeNav}>
+            Report
+          </Link>
+          <Link to="/AdminPortal" onClick={this.closeNav}>
+            Admin
+          </Link>
           <a href={process.env.REACT_APP_LOGOUT} onClick={this.handleClick}>
             Logout
           </a>
         </div>
         {this.props.user.id > 0 && (
           <button className="imgButton" onClick={this.openNav}>
-            <img id="headerLogo" src={require("./logo.png")} /> &dArr;
+            <img id="headerLogo" src={require("./logo.png")} /> <br />
+            <h2 style={{ margin: "0px", lineHeight: ".01" }}>&#8215;</h2>
           </button>
         )}
       </header>

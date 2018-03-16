@@ -61,7 +61,11 @@ class Report extends Component {
               value={this.state.recipient}
               placeholder="+12223334444"
             />
-            <button className="pure-button" onClick={this.sendSms}>
+            <br />
+            <button
+              className="pure-button button-secondary"
+              onClick={this.sendSms}
+            >
               Send SMS
             </button>
             <p>

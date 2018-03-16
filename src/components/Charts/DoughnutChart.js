@@ -5,18 +5,19 @@ import { withRouter } from "react-router-dom";
 import Fullscreen from "react-full-screen";
 
 import { getUser } from "../../ducks/reducer";
-// import {getTransactions} from "../../ducks/reducer";
 import { logout } from "../../ducks/reducer";
 
 let chartOptions: {
-  responsive: true,
-  maintainAspectRatio: false
+  redraw: true,
+  responsive: false,
+  mantainAspectRatio: false
 };
 
 class DoughnutChart extends Component {
   constructor() {
     super();
     this.state = {
+      newChartData: {},
       isFull: false,
       marginTop: "",
       theme: "#3D3A4B",
@@ -38,7 +39,6 @@ class DoughnutChart extends Component {
   componentDidMount() {
     this.props.getUser();
     setInterval(this.functionRunning, 3000);
-    setInterval(this.functionRunning2, 3000);
   }
 
   functionRunning() {
@@ -46,7 +46,9 @@ class DoughnutChart extends Component {
     let temp3 = Math.floor(Math.random() * 10);
     let temp2 = this.state.chartData2;
     temp2.datasets[0].data[0] = temp;
-    this.setState({ chartData2: temp2 });
+    temp2.datasets[0].data[1] = temp3;
+    this.setState({ newChartData: temp2 });
+    this.setState({ chartData2: this.state.newChartData });
   }
 
   goFull = () => {
@@ -70,25 +72,54 @@ class DoughnutChart extends Component {
         enabled={this.state.isFull}
         onChange={isFull => this.setState({ isFull })}
       >
-        <div className="DoughnutChartWrapper">
-          {this.props.user.id > 0 && (
-            <div
-              className="chart"
-              style={{
-                backgroundColor: this.state.theme,
-                marginTop: this.state.marginTop
-              }}
-            >
-              <Doughnut
-                className="DoughnutChartInner"
-                data={this.state.chartData2}
-                options={chartOptions}
-              />
+        <div className="lineChartWrapper">
+          <div>
+            {window.location.href.includes("DoughnutChart") && (
+              <div>
+                {this.props.user.id > 0 && (
+                  <div
+                    className="charty"
+                    style={{
+                      backgroundColor: this.state.theme,
+                      marginTop: this.state.marginTop
+                    }}
+                  >
+                    <Doughnut
+                      className="lineChartInner"
+                      data={this.state.chartData2}
+                      options={chartOptions}
+                    />
+                  </div>
+                )}
+              </div>
+            )}
+          </div>
+          {window.location.href.includes("Chart") && (
+            <div>
+              {this.props.user.id > 0 && (
+                <div
+                  className="chart"
+                  style={{
+                    backgroundColor: this.state.theme,
+                    marginTop: this.state.marginTop
+                  }}
+                >
+                  <Doughnut
+                    className="lineChartInner"
+                    data={this.state.chartData2}
+                    options={this.state.chartOptions}
+                  />
+                </div>
+              )}
             </div>
           )}
           {window.location.href.includes("DoughnutChart") &&
             this.state.isFull === false && (
-              <button id="fullscreenButton" onClick={this.goFull}>
+              <button
+                id="fullscreenButton"
+                style={{ color: "white" }}
+                onClick={this.goFull}
+              >
                 Go Fullscreen
               </button>
             )}

@@ -185,7 +185,7 @@ class AdminPortal extends Component {
         </tr>
       );
     });
-    let userResults = this.props.allUsers.map((data, i) => {
+    let userResults = this.props.allUsers.slice(0, 14).map((data, i) => {
       let names = data.name;
       return (
         <tr key={`${data.names}${i}`}>
