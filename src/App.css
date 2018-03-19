@@ -251,7 +251,9 @@ td {
   background: white;
   word-wrap: break-word;
 }
-
+input {
+  color: black;
+}
 .switch {
   position: relative;
   display: inline-block;
@@ -262,7 +264,6 @@ td {
 .switch input {
   display: none;
 }
-
 .pure-table {
   margin-top: 5px;
   padding: 2px;

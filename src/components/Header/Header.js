@@ -45,11 +45,11 @@ class Header extends Component {
     document.getElementById("mySidenav").style.width = "0";
   }
   render() {
-    let imgCondition = temp;
-    temp = temp.replace(/github|/gi, "");
-    temp = temp.replace(/\|/g, "");
-    let imgTemp =
-      "https://avatars1.githubusercontent.com/u/" + temp + "?s=460&v=4";
+    const imgCondition = temp;
+    let temp2 = temp.replace(/github|/gi, "");
+    temp2 = temp2.replace(/\|/g, "");
+    imgTemp =
+      "https://avatars1.githubusercontent.com/u/" + temp2 + "?s=460&v=4";
     return (
       <header className="App-header">
         <div>
@@ -117,7 +117,7 @@ class Header extends Component {
         {this.props.user.id > 0 && (
           <button className="imgButton" onClick={this.openNav}>
             <img id="headerLogo" src={require("./logo.png")} /> <br />
-            <h2 style={{ margin: "0px", lineHeight: ".01" }}>&#8215;</h2>
+            <h1 style={{ margin: "0px", lineHeight: ".01" }}>&#8215;</h1>
           </button>
         )}
       </header>
